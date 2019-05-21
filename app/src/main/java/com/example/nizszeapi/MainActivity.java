@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     String TAG = "MainActivity";
     EditText send_data;
     TextView view_data;
+    TextView view_suma;
+    int suma;
+    int tmp;
     StringBuilder messages;
 
 
@@ -168,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     bytes = mmInStream.read(buffer);
                     final String incomingMessage = new String(buffer, 0, bytes);
+
                     Log.d(TAG, "InputStream: " + incomingMessage);
 
                     runOnUiThread(new Runnable() {
@@ -175,6 +179,9 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             view_data.setText(incomingMessage);
+                            suma = Integer.parseInt(incomingMessage);
+                            tmp = tmp + suma;
+                            view_suma.setText(""+tmp);
                         }
                     });
 
@@ -221,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
         send_data = (EditText) findViewById(R.id.editText);
         view_data = (TextView) findViewById(R.id.textView);
+        view_suma = (TextView) findViewById(R.id.textView3);
 
         if (bluetoothAdapter != null && !bluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new
